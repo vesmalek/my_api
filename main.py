@@ -35,6 +35,16 @@ async def get_products(skip: int = 0, limit: int = 5):
 #   /products/5?in_stock=false           → in_stock is False
 #   /products/5?search=large&in_stock=1  → both set
 
+@app.get("/products/{product_id}")
+async def get_product(product_id: int, in_stock: bool = True ,search: str | None = None):
+    return {
+        "product_id": product_id,
+        "in_stock": in_stock,
+        "search": search
+    }
+
+
+
 # Task 3
 # Create GET /orders with a REQUIRED query parameter called status: str
 # No default value — it must be provided

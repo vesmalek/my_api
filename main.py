@@ -1,3 +1,7 @@
+from fastapi import FastAPI
+
+app = FastAPI()
+
 # Task 1
 # Create GET /products with two optional query parameters:
 # skip: int = 0 and limit: int = 5
@@ -8,6 +12,16 @@
 #   /products             → first 5 items
 #   /products?skip=3      → items from index 3
 #   /products?skip=2&limit=3  → 3 items starting from index 2
+
+
+products = ["shirt", "shoes", "hat", "belt", "socks", "watch", "bag", "jacket"]
+
+@app.get("/products")
+async def get_products(skip: int = 0, limit: int = 5):
+    return products[skip: skip + limit]
+
+
+
 
 # Task 2
 # Create GET /products/{product_id} with:

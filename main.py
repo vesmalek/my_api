@@ -67,3 +67,13 @@ async def get_orders(status: str):
 # Return all five values in a dict
 # Test with at least 3 different URL combinations
 # Open /docs and test from the interactive interface too
+
+@app.get("/users/{user_id}/products")
+async def get_user_products(user_id: int, category: str, skip: int = 0, limit: int = 10, active_only: bool = True):
+    return {
+        "user_id": user_id,
+        "category": category,
+        "skip": skip,
+        "limit": limit,
+        "active_only": active_only
+    }

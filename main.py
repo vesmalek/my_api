@@ -53,6 +53,10 @@ async def get_product(product_id: int, in_stock: bool = True ,search: str | None
 #   /orders              → should return a validation error
 #   /orders?status=paid  → should work
 
+@app.get("/orders")
+async def get_orders(status: str):
+    return {"orders_with_status": status}
+
 # Task 4 — Combine everything
 # Create GET /users/{user_id}/products with:
 # - user_id: int (path)

@@ -74,8 +74,25 @@ async def get_product(product_id: int, products: Product):
 #     price: float (required)
 #     note: str | None = None
 # - notify: bool = False (query parameter)
-#
+
+class OrderUpdate(BaseModel):
+    product_name: str
+    quantity: int
+    price: float
+    note: str | None = None
+
 # Inside the function:
 # - Compute total = quantity * price
 # - Return all path params, all body fields, notify, and total
 # Test with and without the notify query parameter
+
+@app.put("/users/{user_id}/orders/{order_id}")
+async def get_user_order(user_id: int, order_id: int, order: OrderUpdate, notify: bool = False):
+    total = order.quantity * order.price
+    return {
+        "user_id": user_id,
+        "order_id": order_id,
+        **order.model_dump(),
+        "notify": notify,
+        "total": total
+    }

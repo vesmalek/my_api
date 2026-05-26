@@ -25,8 +25,8 @@ class User(BaseModel):
 #   c) Missing a required field — observe the validation error
 
 @app.post("/users")
-async def get_users(users: User):
-    return users
+async def create_user(user: User):
+    return user
 
 # Task 2
 # Create a Pydantic model called Product with:
@@ -49,9 +49,9 @@ class Product(BaseModel):
 # Test with discount=20 and without discount
 
 @app.post("/products")
-async def get_products(products: Product):
-    final_price = products.price - (products.price * products.discount / 100)
-    return {**products.model_dump(), "final_price": final_price,}
+async def create_product(product: Product):
+    final_price = product.price - (product.price * product.discount / 100)
+    return {**product.model_dump(), "final_price": final_price,}
 
 # Task 3
 # Create PUT /products/{product_id} that combines:
@@ -61,8 +61,8 @@ async def get_products(products: Product):
 # Test in /docs — notice it shows both the path param AND body fields
 
 @app.put("/products/{product_id}")
-async def get_product(product_id: int, products: Product):
-    return {"product_id": product_id, **products.model_dump()}
+async def update_product(product_id: int, product: Product):
+    return {"product_id": product_id, **product.model_dump()}
 
 # Task 4 — Combine all three
 # Create PUT /users/{user_id}/orders/{order_id} with:
@@ -87,7 +87,7 @@ class OrderUpdate(BaseModel):
 # Test with and without the notify query parameter
 
 @app.put("/users/{user_id}/orders/{order_id}")
-async def get_user_order(user_id: int, order_id: int, order: OrderUpdate, notify: bool = False):
+async def update_user_order(user_id: int, order_id: int, order: OrderUpdate, notify: bool = False):
     total = order.quantity * order.price
     return {
         "user_id": user_id,

@@ -6,8 +6,8 @@ response = requests.post(
         "username": "finito",
         "email": "finito@busaraspace.com",
         "age": 17,
-        "bio": "null",
-        "is_active": "false"
+        "bio": None,
+        "is_active": False
     }
 )
 

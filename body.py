@@ -34,13 +34,24 @@ async def get_users(users: User):
 # - price: float (required)
 # - category: str (required)
 # - discount: float = 0.0 (optional)
-#
+
+class Product(BaseModel):
+    name: str
+    price: float
+    category: str
+    discount: float = 0.0
+
 # Create POST /products that:
 # - Accepts the Product model
 # - Computes final_price = price - (price * discount / 100)
 # - Returns the product dict PLUS the computed final_price
 # Use model_dump() to build the response
 # Test with discount=20 and without discount
+
+@app.post("/products")
+async def get_products(products: Product):
+    final_price = products.price - (products.price * products.discount / 100)
+    return {**products.model_dump(), "final_price": final_price,}
 
 # Task 3
 # Create PUT /products/{product_id} that combines:

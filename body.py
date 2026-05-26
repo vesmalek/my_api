@@ -60,6 +60,10 @@ async def get_products(products: Product):
 # Return {"product_id": product_id, **product.model_dump()}
 # Test in /docs — notice it shows both the path param AND body fields
 
+@app.put("/products/{product_id}")
+async def get_product(product_id: int, products: Product):
+    return {"product_id": product_id, **products.model_dump()}
+
 # Task 4 — Combine all three
 # Create PUT /users/{user_id}/orders/{order_id} with:
 # - user_id: int (path)

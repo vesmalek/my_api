@@ -1,3 +1,8 @@
+from pydantic import BaseModel
+from fastapi import FastAPI
+
+app = FastAPI()
+
 # Task 1
 # Create a Pydantic model called User with:
 # - username: str (required)
@@ -5,12 +10,23 @@
 # - age: int (required)
 # - bio: str | None = None (optional)
 # - is_active: bool = True (optional, defaults True)
-#
+
+class User(BaseModel):
+    username: str
+    email: str
+    age: int 
+    bio: str | None = None
+    is_active: bool = True
+
 # Create POST /users that accepts this model and returns it back
 # Test in /docs with:
 #   a) All fields provided
 #   b) Only required fields
 #   c) Missing a required field — observe the validation error
+
+@app.post("/users")
+async def get_users(users: User):
+    return users
 
 # Task 2
 # Create a Pydantic model called Product with:
